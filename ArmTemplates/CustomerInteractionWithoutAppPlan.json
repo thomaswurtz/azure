@@ -105,7 +105,8 @@
                         }
                     ],
                     "webSocketsEnabled": true,
-                    "alwaysOn": true
+                    "alwaysOn": true,
+                    "httpsOnly": true
                 },
                 "serverFarmId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourcegroups/', parameters('appServicePlanResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]",
                 "hostingEnvironment": "[variables('hostingEnvironment')]",
@@ -193,7 +194,8 @@
                         }
                     ],
                     "nodeVersion": "[parameters('nodeVersion')]",
-                    "alwaysOn": true
+                    "alwaysOn": true,
+                    "httpsOnly": true
                 },
                 "serverFarmId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourcegroups/', parameters('appServicePlanResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]",
                 "hostingEnvironment": "[variables('hostingEnvironment')]",
