@@ -104,6 +104,7 @@
                             "value": "dotnetcore"
                         }
                     ],
+                    "webSocketsEnabled": true,
                     "alwaysOn": true
                 },
                 "serverFarmId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourcegroups/', parameters('appServicePlanResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]",
