@@ -105,12 +105,12 @@
                         }
                     ],
                     "webSocketsEnabled": true,
-                    "alwaysOn": true,
-                    "httpsOnly": true
+                    "alwaysOn": true
                 },
                 "serverFarmId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourcegroups/', parameters('appServicePlanResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]",
                 "hostingEnvironment": "[variables('hostingEnvironment')]",
-                "clientAffinityEnabled": true
+                "clientAffinityEnabled": true,
+                "httpsOnly": true
             }
         },
         {
@@ -194,12 +194,12 @@
                         }
                     ],
                     "nodeVersion": "[parameters('nodeVersion')]",
-                    "alwaysOn": true,
-                    "httpsOnly": true
+                    "alwaysOn": true
                 },
                 "serverFarmId": "[concat('/subscriptions/', subscription().subscriptionId,'/resourcegroups/', parameters('appServicePlanResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]",
                 "hostingEnvironment": "[variables('hostingEnvironment')]",
-                "clientAffinityEnabled": true
+                "clientAffinityEnabled": true,
+                "httpsOnly": true
             }
         }
     ],
