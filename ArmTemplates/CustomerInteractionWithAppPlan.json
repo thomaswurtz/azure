@@ -116,6 +116,7 @@
             "location": "[resourceGroup().location]",
             "tags": {},
             "dependsOn": [
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
                 "[concat('Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]",
                 "[concat('microsoft.insights/components/', parameters('appInsightsName'))]"
             ],
@@ -188,10 +189,15 @@
             "name": "[parameters('storageAccountName')]",
             "type": "Microsoft.Storage/storageAccounts",
             "location": "[resourceGroup().location]",
-            "apiVersion": "2015-06-15",
+            "apiVersion": "2019-04-01",
             "dependsOn": [],
+            "kind": "StorageV2",
+            "sku": {
+                "name": "[parameters('storageAccountType')]"
+            },
             "properties": {
-                "accountType": "[parameters('storageAccountType')]"
+                "accessTier": "Hot",
+                "supportsHttpsTrafficOnly": true
             }
         },
         {
