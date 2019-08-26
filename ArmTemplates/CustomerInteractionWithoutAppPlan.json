@@ -55,6 +55,7 @@
             "location": "[resourceGroup().location]",
             "tags": {},
             "dependsOn": [
+                "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
                 "[concat('microsoft.insights/components/', parameters('appInsightsName'))]"
             ],
             "properties": {
