@@ -2,38 +2,61 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+		"location": {
+			"type": "string",
+			"defaultValue": "[resourceGroup().location]",
+			"metadata": {
+				"description": "Location for resources to be created. Must be same as the App Service Plan location"
+			}
+		},
         "appServicePlanName": {
             "type": "string",
-            "defaultValue": "plan"
+            "defaultValue": "plan",
+			"metadata": {
+                "description": "App Service Plan to host the App Services in"
+            }
         },
         "appServicePlanResourceGroup": {
             "type": "string",
-            "defaultValue": "plan-rg"
+            "defaultValue": "plan-rg",
+			"metadata": {
+                "description": "Resource group of the specified App Service Plan"
+            }
         },
         "appInsightsName": {
             "type": "string",
-            "defaultValue": "tenantname",
-            "metadata": { "description": "Name of the Application Insights Service used by both the Customer Interaction API and Web" }
+            "defaultValue": "tenantname-appinsights",
+            "metadata": {
+                "description": "Name of the Application Insights Service used by both the Customer Interaction API and Web"
+            }
         },
         "appServiceNameApi": {
             "type": "string",
             "defaultValue": "tenantname-ci-api",
-            "metadata": { "description": "Name of the App Service for the Customer Interaction API" }
+            "metadata": {
+                "description": "Name of the App Service for the Customer Interaction API"
+            }
         },
         "appServiceNameWeb": {
             "type": "string",
             "defaultValue": "tenantname-ci-web",
-            "metadata": { "description": "Name of the App Service for the Customer Interaction Web" }
+            "metadata": {
+                "description": "Name of the App Service for the Customer Interaction Web"
+            }
         },
         "nodeVersion": {
             "type": "string",
             "defaultValue": "8.9.4",
-            "metadata": { "description": "Node version of the Customer Interaction Web" }
+            "metadata": {
+                "description": "Node version of the Customer Interaction Web"
+            }
         },
         "storageAccountName": {
             "type": "string",
             "defaultValue": "tenantnamestorage",
-            "metadata": { "description": "Storage account used by the Customer Interaction API, must be lower case" }
+            "metadata": {
+                "description": "Storage account used by the Customer Interaction API, must be lower case"
+            }
         },
         "storageAccountType": {
             "type": "string",
@@ -52,7 +75,7 @@
             "apiVersion": "2018-02-01",
             "name": "[parameters('appServiceNameApi')]",
             "type": "Microsoft.Web/sites",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "tags": {},
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
@@ -118,7 +141,7 @@
             "apiVersion": "2015-05-01",
             "name": "[parameters('appInsightsName')]",
             "type": "microsoft.insights/components",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "properties": {
                 "ApplicationId": "[parameters('appServiceNameApi')]",
                 "Request_Source": "IbizaWebAppExtensionCreate"
@@ -127,7 +150,7 @@
         {
             "name": "[parameters('storageAccountName')]",
             "type": "Microsoft.Storage/storageAccounts",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "apiVersion": "2019-04-01",
             "dependsOn": [],
             "kind": "StorageV2",
@@ -143,7 +166,7 @@
             "apiVersion": "2018-02-01",
             "name": "[parameters('appServiceNameWeb')]",
             "type": "Microsoft.Web/sites",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "tags": {},
             "dependsOn": [
                 "[concat('microsoft.insights/components/', parameters('appInsightsName'))]"
